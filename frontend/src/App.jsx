@@ -195,7 +195,53 @@ function HeroBackground() {
   );
 }
 
-const PIPELINE_STEPS = ['Analyzer', 'Test Runner', 'Classifier', 'Fix Gen', 'Commit', 'CI Monitor'];
+const PIPELINE_STEPS = [
+  { name: 'Analyzer', icon: '🔍' },
+  { name: 'Test Runner', icon: '🧪' },
+  { name: 'Classifier', icon: '🏷️' },
+  { name: 'Fix Gen', icon: '⚡' },
+  { name: 'Commit', icon: '📦' },
+  { name: 'CI Monitor', icon: '🔄' },
+];
+
+/* ── Glass Dock with fisheye magnification ──────────────── */
+function GlassDock({ items }) {
+  const dockRef = useRef(null);
+  const [hoveredIndex, setHoveredIndex] = React.useState(null);
+
+  const getScale = (index) => {
+    if (hoveredIndex === null) return 1;
+    const dist = Math.abs(hoveredIndex - index);
+    if (dist === 0) return 1.5;
+    if (dist === 1) return 1.25;
+    if (dist === 2) return 1.1;
+    return 1;
+  };
+
+  return (
+    <div className="glass-dock-wrapper">
+      <div className="glass-dock" ref={dockRef}>
+        {items.map((item, i) => (
+          <div
+            key={item.name}
+            className={`glass-dock-item ${hoveredIndex === i ? 'active' : ''}`}
+            onMouseEnter={() => setHoveredIndex(i)}
+            onMouseLeave={() => setHoveredIndex(null)}
+            style={{
+              transform: `scale(${getScale(i)})`,
+              transition: 'transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1)',
+            }}
+          >
+            <span className="glass-dock-icon">{item.icon}</span>
+            {hoveredIndex === i && (
+              <div className="glass-dock-tooltip">{item.name}</div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 function App() {
   const { result, status } = useAgentStore();
@@ -239,17 +285,8 @@ function App() {
             generates targeted AI fixes, and pushes a clean branch automatically.
           </p>
 
-          {/* Agent pipeline visualization */}
-          <div className="pipeline-visual">
-            {PIPELINE_STEPS.map((step, i) => (
-              <div key={step} className="pipeline-step">
-                <span className="pipeline-step-label">{step}</span>
-                {i < PIPELINE_STEPS.length - 1 && (
-                  <span className="pipeline-arrow">→</span>
-                )}
-              </div>
-            ))}
-          </div>
+          {/* Agent pipeline — Glass Dock visualization */}
+          <GlassDock items={PIPELINE_STEPS} />
         </section>
 
         {/* ── Input ── */}
