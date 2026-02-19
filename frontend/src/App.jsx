@@ -6,6 +6,7 @@ import RunSummaryCard from './components/dashboard/RunSummaryCard';
 import ScorePanel from './components/dashboard/ScorePanel';
 import FixesTable from './components/dashboard/FixesTable';
 import Timeline from './components/dashboard/Timeline';
+import NeuralBackground from './components/NeuralBackground';
 
 /* ── Custom reticle cursor ─────────────────────────────────── */
 function useReticleCursor() {
@@ -207,6 +208,7 @@ function App() {
 
   return (
     <>
+      <NeuralBackground />
       <div className="app-container">
         {/* ── Navbar ── */}
         <nav className="navbar">
@@ -221,7 +223,6 @@ function App() {
 
         {/* ── Hero ── */}
         <section className="hero" ref={heroRef} style={{ transition: 'transform 0.1s ease-out' }}>
-          <HeroBackground />
 
           <div className="hero-eyebrow">
             <span>⚡</span>

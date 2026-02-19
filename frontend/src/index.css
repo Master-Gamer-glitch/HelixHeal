@@ -131,30 +131,69 @@ label,
   cursor: none;
 }
 
-/* ─── Red glow background ───────────────────────────────────── */
-body::before {
-  content: '';
+/* ─── Neural Background ───────────────────────────────────── */
+.neural-bg {
   position: fixed;
   inset: 0;
-  background:
-    radial-gradient(ellipse 70% 60% at 85% 80%, rgba(180, 20, 20, 0.15) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 40% at 10% 90%, rgba(120, 10, 10, 0.08) 0%, transparent 60%),
-    radial-gradient(ellipse 40% 50% at 50% 30%, rgba(80, 5, 5, 0.04) 0%, transparent 70%);
-  pointer-events: none;
   z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
 }
 
-/* Subtle mesh grid */
-body::after {
+.neural-bg-glow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 1, 1, 0.55) 0%, rgba(0, 0, 0, 0) 65%);
+  pointer-events: none;
+}
+
+.neural-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.neural-symbol {
+  position: absolute;
+  font-family: var(--mono);
+  color: rgba(255, 255, 255, 0.1);
+  pointer-events: none;
+  white-space: nowrap;
+  animation: symbol-drift linear infinite;
+  will-change: transform;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.neural-symbol.glow {
+  color: rgba(255, 80, 80, 0.6);
+  text-shadow: 0 0 12px rgba(255, 50, 50, 0.5);
+}
+
+@keyframes symbol-drift {
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(var(--move-x), var(--move-y));
+  }
+}
+
+/* Subtle mesh grid overlay */
+.neural-bg::after {
   content: '';
-  position: fixed;
+  position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+    linear-gradient(rgba(255, 255, 255, 0.012) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.012) 1px, transparent 1px);
   background-size: 80px 80px;
   pointer-events: none;
-  z-index: 0;
   mask-image: radial-gradient(ellipse 80% 80% at 50% 0%, black 0%, transparent 80%);
 }
 
