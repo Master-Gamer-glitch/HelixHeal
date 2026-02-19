@@ -72,12 +72,34 @@ const PARTICLES = [
   { top: '85%', left: '70%', w: 4, h: 4, delay: '4s', duration: '12s' },
 ];
 
-function HeroParticles() {
+/* ── Floating code symbols ──────────────────────────────────── */
+const CODE_SYMBOLS = [
+  { text: 'git', top: '30%', left: '12%', bright: false },
+  { text: '$', top: '20%', left: '38%', bright: true },
+  { text: ';', top: '25%', left: '35%', bright: false },
+  { text: '//', top: '15%', left: '82%', bright: false },
+  { text: 'return', top: '45%', left: '78%', bright: true },
+  { text: '01', top: '35%', left: '6%', bright: true },
+  { text: '=>', top: '70%', left: '88%', bright: false },
+  { text: '{}', top: '60%', left: '15%', bright: false },
+  { text: 'fn', top: '80%', left: '42%', bright: true },
+];
+
+/* ── Constellation lines ──────────────────────────────────── */
+const CONSTELLATION_LINES = [
+  { top: '28%', left: '10%', width: 120, rotate: 55 },
+  { top: '22%', left: '36%', width: 80, rotate: -30 },
+  { top: '40%', left: '75%', width: 140, rotate: 25 },
+  { top: '65%', left: '20%', width: 90, rotate: -15 },
+  { top: '18%', left: '60%', width: 100, rotate: 70 },
+];
+
+function HeroBackground() {
   return (
     <div className="hero-parallax-bg" aria-hidden="true">
       {PARTICLES.map((p, i) => (
         <div
-          key={i}
+          key={`particle-${i}`}
           className="hero-particle"
           style={{
             top: p.top, left: p.left,
@@ -86,6 +108,27 @@ function HeroParticles() {
           }}
         />
       ))}
+      {CODE_SYMBOLS.map((s, i) => (
+        <span
+          key={`sym-${i}`}
+          className={`code-symbol${s.bright ? ' bright' : ''}`}
+          style={{ top: s.top, left: s.left, animationDelay: `${i * 2.3}s` }}
+        >
+          {s.text}
+        </span>
+      ))}
+      {CONSTELLATION_LINES.map((l, i) => (
+        <div
+          key={`line-${i}`}
+          className="constellation-line"
+          style={{
+            top: l.top, left: l.left,
+            width: l.width,
+            transform: `rotate(${l.rotate}deg)`,
+          }}
+        />
+      ))}
+      <div className="hero-reticle" />
     </div>
   );
 }
@@ -107,7 +150,7 @@ function App() {
         <nav className="navbar">
           <div className="navbar-logo">
             <div className="navbar-logo-dot" />
-            AI Fix Agent
+            HelixHeal.AI
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <span className="navbar-badge">AGNO + Gemini</span>
@@ -116,16 +159,16 @@ function App() {
 
         {/* ── Hero ── */}
         <section className="hero" ref={heroRef} style={{ transition: 'transform 0.1s ease-out' }}>
-          <HeroParticles />
+          <HeroBackground />
 
           <div className="hero-eyebrow">
             <span>⚡</span>
-            Autonomous Code Fixing
+            Autonomous Code Healing
           </div>
 
           <h1 className="hero-title">
-            <span className="hero-title-gradient">Ship Fixes,</span><br />
-            Not Bugs.
+            <span className="hero-title-gradient">Autonomous</span><br />
+            Code Repair.
           </h1>
 
           <p className="hero-subtitle">
