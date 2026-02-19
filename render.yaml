@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: helixheal-api
+    runtime: python
+    repo: https://github.com/Master-Gamer-glitch/HelixHeal
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt && pip install gunicorn
+    startCommand: gunicorn app.main:app --workers 1 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT --timeout 120
+    envVars:
+      - key: GOOGLE_API_KEY
+        sync: false
+      - key: PYTHONPATH
+        value: /opt/render/project/src
+      - key: REPOS_BASE
+        value: /tmp/agno_repos
+    plan: free
+    autoDeploy: true
+    branch: main
