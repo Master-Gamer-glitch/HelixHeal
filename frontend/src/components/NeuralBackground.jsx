@@ -105,7 +105,7 @@ function useMouseGlow(symbolsRef) {
                 const cx = rect.left + rect.width / 2;
                 const cy = rect.top + rect.height / 2;
                 const dist = Math.sqrt((mx - cx) ** 2 + (my - cy) ** 2);
-                if (dist < 150) {
+                if (dist < 200) {
                     el.classList.add('glow');
                 } else {
                     el.classList.remove('glow');
