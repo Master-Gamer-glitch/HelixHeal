@@ -276,8 +276,8 @@ function App() {
           </div>
 
           <h1 className="hero-title">
-            <span className="hero-title-gradient">Autonomous</span><br />
-            Code Repair.
+            <span className="hero-title-gradient">AI which</span><br />
+            commits.
           </h1>
 
           <p className="hero-subtitle">
