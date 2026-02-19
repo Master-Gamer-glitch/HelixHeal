@@ -72,12 +72,7 @@ const ScorePanel = ({ score }) => {
                     <div className="score-ring-text">
                         <span
                             className="score-number"
-                            style={{
-                                background: `linear-gradient(135deg, #fff 0%, ${c1} 100%)`,
-                                WebkitBackgroundClip: 'text',
-                                WebkitTextFillColor: 'transparent',
-                                backgroundClip: 'text',
-                            }}
+                            style={{ color: c1 }}
                         >
                             {displayed}
                         </span>
