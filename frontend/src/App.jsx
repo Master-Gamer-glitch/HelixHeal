@@ -7,6 +7,67 @@ import ScorePanel from './components/dashboard/ScorePanel';
 import FixesTable from './components/dashboard/FixesTable';
 import Timeline from './components/dashboard/Timeline';
 
+/* ── Custom reticle cursor ─────────────────────────────────── */
+function useReticleCursor() {
+  useEffect(() => {
+    const ring = document.createElement('div');
+    const dot = document.createElement('div');
+    ring.className = 'cursor-ring';
+    dot.className = 'cursor-dot';
+    document.body.appendChild(ring);
+    document.body.appendChild(dot);
+
+    let mx = -100, my = -100; // mouse position
+    let rx = -100, ry = -100; // ring position (lerped)
+
+    const onMove = (e) => {
+      mx = e.clientX;
+      my = e.clientY;
+      dot.style.left = mx + 'px';
+      dot.style.top = my + 'px';
+    };
+
+    const onDown = () => ring.classList.add('clicking');
+    const onUp = () => ring.classList.remove('clicking');
+
+    const onOverInteractive = () => ring.classList.add('hovering');
+    const onLeaveInteractive = () => ring.classList.remove('hovering');
+
+    // Smooth ring follow
+    let raf;
+    const animate = () => {
+      rx += (mx - rx) * 0.15;
+      ry += (my - ry) * 0.15;
+      ring.style.left = rx + 'px';
+      ring.style.top = ry + 'px';
+      raf = requestAnimationFrame(animate);
+    };
+    raf = requestAnimationFrame(animate);
+
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mousedown', onDown);
+    window.addEventListener('mouseup', onUp);
+
+    // Hover detect for interactive elements
+    const interactiveSelectors = 'a, button, input, select, textarea, label, [role="button"], .pipeline-step-label, .navbar-badge';
+    document.addEventListener('mouseover', (e) => {
+      if (e.target.closest(interactiveSelectors)) onOverInteractive();
+    });
+    document.addEventListener('mouseout', (e) => {
+      if (e.target.closest(interactiveSelectors)) onLeaveInteractive();
+    });
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mousedown', onDown);
+      window.removeEventListener('mouseup', onUp);
+      ring.remove();
+      dot.remove();
+    };
+  }, []);
+}
+
 /* ── Scroll-driven reveal ──────────────────────────────────────── */
 function useRevealOnScroll() {
   useEffect(() => {
@@ -142,13 +203,14 @@ function App() {
 
   useRevealOnScroll();
   useHeroParallax(heroRef);
+  useReticleCursor();
 
   return (
     <>
       <div className="app-container">
         {/* ── Navbar ── */}
         <nav className="navbar">
-          <div className="navbar-logo">
+          <div className="navbar-logo" data-text="HelixHeal.AI">
             <div className="navbar-logo-dot" />
             HelixHeal.AI
           </div>
