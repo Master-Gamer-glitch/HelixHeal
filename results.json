@@ -1,0 +1,67 @@
+{
+    "repository": "https://github.com/example/buggy-repo",
+    "team": {
+        "name": "RIFT ORGANISERS",
+        "leader": "Saiyam Kumar"
+    },
+    "branch_created": "RIFT_ORGANISERS_SAIYAM_KUMAR_AI_FIX",
+    "summary": {
+        "total_failures": 5,
+        "total_fixes": 4,
+        "ci_status": "PASSED",
+        "time_taken_seconds": 287,
+        "iterations_used": 3
+    },
+    "score": {
+        "speed_bonus": 10,
+        "efficiency_penalty": -4,
+        "final_score": 86
+    },
+    "fixes": [
+        {
+            "file": "src/utils.py",
+            "bug_type": "IMPORT",
+            "line": 15,
+            "commit_message": "[AI-AGENT] Remove unused import os",
+            "status": "Fixed"
+        },
+        {
+            "file": "src/api/routes.py",
+            "bug_type": "SYNTAX",
+            "line": 42,
+            "commit_message": "[AI-AGENT] Fix missing colon in function definition",
+            "status": "Fixed"
+        },
+        {
+            "file": "tests/test_auth.py",
+            "bug_type": "LOGIC",
+            "line": 102,
+            "commit_message": "[AI-AGENT] Correct assertion logic for token expiry",
+            "status": "Fixed"
+        },
+        {
+            "file": "src/models/user.py",
+            "bug_type": "TYPE_ERROR",
+            "line": 12,
+            "commit_message": "[AI-AGENT] Fix type hint for email field",
+            "status": "Fixed"
+        }
+    ],
+    "ci_timeline": [
+        {
+            "iteration": 1,
+            "status": "FAILED",
+            "timestamp": "2026-02-19T10:20:00Z"
+        },
+        {
+            "iteration": 2,
+            "status": "FAILED",
+            "timestamp": "2026-02-19T10:21:15Z"
+        },
+        {
+            "iteration": 3,
+            "status": "PASSED",
+            "timestamp": "2026-02-19T10:22:30Z"
+        }
+    ]
+}

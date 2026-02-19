@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+agno
+docker
+gitpython
+pytest
+pydantic
+python-dotenv
+httpx

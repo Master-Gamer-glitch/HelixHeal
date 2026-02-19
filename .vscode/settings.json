@@ -1,0 +1,7 @@
+{
+    "python.defaultInterpreterPath": "/Users/aryan/Desktop/Rift 1/backend/venv/bin/python",
+    "python.analysis.extraPaths": [
+        "/Users/aryan/Desktop/Rift 1/backend"
+    ],
+    "python.terminal.activateEnvironment": true
+}
