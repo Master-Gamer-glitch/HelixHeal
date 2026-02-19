@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - RETRY_LIMIT=${RETRY_LIMIT:-5}
+      - REPOS_DIR=/tmp/agno_repos
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - agno_repos:/tmp/agno_repos
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  sandbox:
+    build:
+      context: ./sandbox
+      dockerfile: Dockerfile
+    volumes:
+      - agno_repos:/sandbox/repos
+
+volumes:
+  agno_repos:

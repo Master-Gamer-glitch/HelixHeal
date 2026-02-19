@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+backend/venv/
+__pycache__/
+*.pyc
+
+# Environment
+.env
+backend/.env
+
+# Build output
+frontend/dist/
+frontend/build/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Temp
+/tmp/
+*.log
+
+# Gemini agent artifacts
+.gemini/
+.agents/

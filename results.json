@@ -1,0 +1,108 @@
+{
+    "repository": "https://github.com/example/sample-buggy-repo",
+    "team": {
+        "name": "RIFT ORGANISERS",
+        "leader": "Saiyam Kumar"
+    },
+    "branch_created": "RIFT_ORGANISERS_SAIYAM_KUMAR_AI_FIX",
+    "summary": {
+        "total_failures": 5,
+        "total_fixes": 4,
+        "ci_status": "PASSED",
+        "time_taken_seconds": 287,
+        "iterations_used": 3
+    },
+    "score": {
+        "speed_bonus": 10,
+        "efficiency_penalty": 0,
+        "final_score": 90
+    },
+    "fixes": [
+        {
+            "file": "src/utils.py",
+            "bug_type": "IMPORT",
+            "line": 15,
+            "original_code": "import os\nimport sys\nimport nonexistent_module\n",
+            "fixed_code": "import os\nimport sys\n# FIXED: import nonexistent_module  # module not available\n",
+            "description": "Fixed IMPORT in src/utils.py",
+            "commit_message": "[AI-AGENT] Fix IMPORT in src/utils.py",
+            "status": "Fixed"
+        },
+        {
+            "file": "src/parser.py",
+            "bug_type": "INDENTATION",
+            "line": 42,
+            "original_code": "\tdef parse(self):\n\t\treturn self.data\n",
+            "fixed_code": "    def parse(self):\n        return self.data\n",
+            "description": "Fixed INDENTATION in src/parser.py",
+            "commit_message": "[AI-AGENT] Fix INDENTATION in src/parser.py",
+            "status": "Fixed"
+        },
+        {
+            "file": "src/calculator.py",
+            "bug_type": "LOGIC",
+            "line": 18,
+            "original_code": "def divide(a, b):\n    return a / b\n",
+            "fixed_code": "def divide(a, b):\n    if b == 0:\n        raise ValueError('Division by zero')\n    return a / b\n",
+            "description": "Fixed LOGIC in src/calculator.py",
+            "commit_message": "[AI-AGENT] Fix LOGIC in src/calculator.py",
+            "status": "Fixed"
+        },
+        {
+            "file": "src/formatter.py",
+            "bug_type": "SYNTAX",
+            "line": 7,
+            "original_code": "def format_name(name):\n    return f'Hello {name'\n",
+            "fixed_code": "def format_name(name):\n    return f'Hello {name}'\n",
+            "description": "Fixed SYNTAX in src/formatter.py",
+            "commit_message": "[AI-AGENT] Fix SYNTAX in src/formatter.py",
+            "status": "Fixed"
+        },
+        {
+            "file": "src/config.py",
+            "bug_type": "LINTING",
+            "line": 3,
+            "original_code": "import json\nimport csv  # unused\n",
+            "fixed_code": "import json\n# REMOVED: import csv  # unused import\n",
+            "description": "Fixed LINTING in src/config.py",
+            "commit_message": "[AI-AGENT] Fix LINTING in src/config.py",
+            "status": "Failed"
+        }
+    ],
+    "ci_timeline": [
+        {
+            "iteration": 1,
+            "status": "FAILED",
+            "timestamp": "2026-02-19T05:00:00Z",
+            "failures": [
+                "ImportError: No module named 'nonexistent_module'",
+                "IndentationError in src/parser.py line 42"
+            ],
+            "post_status": "FAILED",
+            "post_failures": [
+                "AssertionError in test_calculator.py::test_divide"
+            ]
+        },
+        {
+            "iteration": 2,
+            "status": "FAILED",
+            "timestamp": "2026-02-19T05:03:12Z",
+            "failures": [
+                "AssertionError in test_calculator.py::test_divide",
+                "SyntaxError in src/formatter.py line 7"
+            ],
+            "post_status": "PASSED",
+            "post_failures": []
+        },
+        {
+            "iteration": 3,
+            "status": "PASSED",
+            "timestamp": "2026-02-19T05:07:47Z",
+            "failures": [],
+            "post_status": null,
+            "post_failures": []
+        }
+    ],
+    "status": "COMPLETED",
+    "branch_pushed": true
+}
