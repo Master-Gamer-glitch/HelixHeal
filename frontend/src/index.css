@@ -2046,3 +2046,119 @@ tr[data-type="TYPE_ERROR"] td:first-child {
     letter-spacing: -2px;
   }
 }
+
+/* ─── Liquid Ocean Section ───────────────────────────────────── */
+.liquid-ocean-section {
+  margin-top: 80px;
+  padding: 60px 0 0;
+  position: relative;
+}
+
+.liquid-ocean-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.liquid-ocean-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent-bright);
+  background: var(--red-dim);
+  border: 1px solid rgba(212, 32, 32, 0.25);
+  padding: 4px 12px;
+  border-radius: 100px;
+  margin-bottom: 16px;
+}
+
+.liquid-ocean-title {
+  font-family: var(--display);
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 800;
+  color: var(--text);
+  margin: 0 0 12px;
+  letter-spacing: -0.5px;
+}
+
+.liquid-ocean-desc {
+  font-size: 14px;
+  color: var(--text-2);
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.liquid-ocean-container {
+  position: relative;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.liquid-ocean-canvas {
+  display: block;
+  width: 100%;
+  height: 300px;
+  opacity: 0.7;
+}
+
+/* Terminal overlay */
+.liquid-ocean-terminal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 24px 28px;
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.5);
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+  scrollbar-width: none;
+}
+
+.liquid-ocean-terminal::-webkit-scrollbar {
+  display: none;
+}
+
+/* Terminal text colors */
+.term-cmd {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.term-success {
+  color: #00e5a0;
+}
+
+.term-error {
+  color: var(--accent-bright);
+}
+
+.term-del {
+  color: rgba(255, 80, 80, 0.7);
+}
+
+.term-add {
+  color: #00e5a0;
+}
+
+.term-info {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.terminal-cursor {
+  color: var(--accent-bright);
+  animation: blink 0.8s step-end infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}

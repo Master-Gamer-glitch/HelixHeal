@@ -7,6 +7,7 @@ import ScorePanel from './components/dashboard/ScorePanel';
 import FixesTable from './components/dashboard/FixesTable';
 import Timeline from './components/dashboard/Timeline';
 import NeuralBackground from './components/NeuralBackground';
+import LiquidOcean from './components/LiquidOcean';
 
 /* ── Custom reticle cursor ─────────────────────────────────── */
 function useReticleCursor() {
@@ -312,6 +313,11 @@ function App() {
             </div>
           </div>
         )}
+
+        {/* ── Liquid Ocean Footer ── */}
+        <div className="reveal">
+          <LiquidOcean />
+        </div>
       </div>
     </>
   );
