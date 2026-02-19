@@ -262,9 +262,6 @@ function App() {
             <div className="navbar-logo-dot" />
             HelixHeal.AI
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <span className="navbar-badge">AGNO + Gemini</span>
-          </div>
         </nav>
 
         {/* ── Hero ── */}
