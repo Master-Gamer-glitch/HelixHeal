@@ -10,18 +10,18 @@ const SYMBOL_POOL = [
 ];
 
 /* ── Generate random symbols ─────────────────────────────── */
-function generateSymbols(count = 70) {
+function generateSymbols(count = 75) {
     const syms = [];
     for (let i = 0; i < count; i++) {
         const text = SYMBOL_POOL[Math.floor(Math.random() * SYMBOL_POOL.length)];
-        const size = 10 + Math.random() * 22; // 10px to 32px
+        const size = 12 + Math.random() * 24; // 12px to 36px
         syms.push({
             id: i,
             text,
             x: Math.random() * 100,      // % left
             y: Math.random() * 100,      // % top
             size,
-            opacity: 0.04 + Math.random() * 0.15,
+            opacity: 0.06 + Math.random() * 0.16,
             moveX: -30 + Math.random() * 60,
             moveY: -30 + Math.random() * 60,
             duration: 15 + Math.random() * 25,
