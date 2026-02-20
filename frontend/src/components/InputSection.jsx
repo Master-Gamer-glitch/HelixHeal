@@ -11,7 +11,7 @@ const PLACEHOLDER_REPOS = [
 
 const InputSection = () => {
     const {
-        repoUrl, teamName, teamLeader, githubToken, retryLimit, status,
+        repoUrl, teamName, teamLeader, githubToken, retryLimit, status, result,
         setField, submitJob, reset,
     } = useAgentStore();
 
@@ -48,6 +48,56 @@ const InputSection = () => {
         e.preventDefault();
         if (!repoUrl.trim() || !teamName.trim() || !teamLeader.trim()) return;
         submitJob();
+    };
+
+    const downloadResults = () => {
+        if (!result) return;
+
+        const branchName = `${teamName.replace(/\s+/g, '_').toUpperCase()}_${teamLeader.replace(/\s+/g, '_').toUpperCase()}_AI_FIX`;
+
+        const output = {
+            repository: repoUrl,
+            team: {
+                name: teamName,
+                leader: teamLeader,
+            },
+            branch_created: branchName,
+            summary: {
+                total_failures: result.total_failures ?? result.fixes?.length ?? 0,
+                total_fixes: result.fixes?.filter(f => f.status === 'Fixed').length ?? 0,
+                ci_status: result.ci_timeline?.slice(-1)[0]?.status ?? result.ci_status ?? 'UNKNOWN',
+                time_taken_seconds: result.time_taken_seconds ?? 0,
+                iterations_used: result.ci_timeline?.length ?? 0,
+            },
+            score: {
+                base_score: result.score?.base_score ?? 100,
+                speed_bonus: result.score?.speed_bonus ?? 0,
+                efficiency_penalty: result.score?.efficiency_penalty ?? 0,
+                ci_penalty: result.score?.ci_penalty ?? 0,
+                final_score: result.score?.final_score ?? 0,
+            },
+            fixes: (result.fixes || []).map(f => ({
+                file: f.file,
+                bug_type: f.bug_type,
+                line: f.line,
+                commit_message: f.commit_message || `[AI-AGENT] Fix ${f.bug_type} in ${f.file}`,
+                status: f.status,
+            })),
+            ci_timeline: (result.ci_timeline || []).map(t => ({
+                iteration: t.iteration,
+                status: t.status,
+                timestamp: t.timestamp,
+                ...(t.post_status ? { post_status: t.post_status } : {}),
+            })),
+        };
+
+        const blob = new Blob([JSON.stringify(output, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'results.json';
+        a.click();
+        URL.revokeObjectURL(url);
     };
 
     return (
@@ -168,6 +218,17 @@ const InputSection = () => {
                             </button>
                         )}
                     </div>
+
+                    {isDone && result && (
+                        <button
+                            type="button"
+                            className="btn-primary"
+                            onClick={downloadResults}
+                            style={{ marginTop: 12 }}
+                        >
+                            📥 Download results.json
+                        </button>
+                    )}
                 </form>
 
                 <ProgressBar />
